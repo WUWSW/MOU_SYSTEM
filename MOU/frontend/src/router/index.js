@@ -10,19 +10,24 @@ const router = createRouter({
       component: () => import('../views/login/login.vue')
     },
     {
-      path: '/admin',
-      name: 'admin',
+      path: '/Admin',
+      name: 'Admin',
       // component: () => import('../views/Admin/App.vue')
     },
     {
-      path: '/approve',
-      name: 'approve',
+      path: '/Approve',
+      name: 'Approve',
       // component: () => import('../views/Approve/App.vue')
     },
     {
-      path: '/user',
-      name: 'user',
+      path: '/User',
+      name: 'User',
       component: () => import('../views/User/User.vue')
+    }
+    ,
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/'
     }
   ]
 })
