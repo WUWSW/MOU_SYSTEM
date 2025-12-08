@@ -31,6 +31,12 @@ mongoose.connect(MONGO_URI)
 //Routes
 
 //////////////////////////USERS//////////////////////////
+// Get all users
+app.get("/users", async (req, res) => {
+  const users = await User.find().select("-password");
+  res.json({ success: true, data: users });
+});
+
 app.post("/users", async (req, res) => {
   try {
     const user = new User(req.body);
@@ -42,8 +48,9 @@ app.post("/users", async (req, res) => {
 });
 
 //////////////////////////PARTNERS//////////////////////////
-app.get("/partners", (req, res) => {
-  res.send("MOU system running...");
+app.get("/partners", async (req, res) => {
+  const partners = await Partner.find();
+  res.json({ success: true, data: partners });
 });
 
 app.post("/partners", async (req, res) => {
@@ -57,6 +64,10 @@ app.post("/partners", async (req, res) => {
 });
 
 //////////////////////////MOUS//////////////////////////
+app.get("/mou", async (req, res) => {
+  const mou = await Mou.find();
+  res.json({ success: true, data: mou });
+});
 
 app.post("/mou", async (req, res) => {
   try {
@@ -80,6 +91,11 @@ app.post("/mou_partner", async (req, res) => {
 });
 
 //////////////////////////ACTIVITIES//////////////////////////
+app.get("/activities", async (req, res) => {
+  const activities = await Activity.find();
+  res.json({ success: true, data: activities });
+});
+
 app.post("/activities", async (req, res) => {
   try {
     const activity = new Activity(req.body);
@@ -91,6 +107,11 @@ app.post("/activities", async (req, res) => {
 });
 
 //////////////////////////NOTIFICATIONS//////////////////////////
+app.get("/notifications", async (req, res) => {
+  const noti = await Notification.find();
+  res.json({ success: true, data: noti });
+});
+
 app.post("/notifications", async (req, res) => {
   try {
     const notification = new Notification(req.body);
@@ -102,6 +123,11 @@ app.post("/notifications", async (req, res) => {
 });
 
 //////////////////////////LOGS//////////////////////////
+app.get("/logs", async (req, res) => {
+  const logs = await Log.find();
+  res.json({ success: true, data: logs });
+});
+
 app.post("/logs", async (req, res) => {
   try {
     const log = new Log(req.body);
@@ -111,15 +137,6 @@ app.post("/logs", async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 });
-
-
-
-// const users = [
-//   { id: 1, username: 'admin', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'ADMIN' },
-//   { id: 2, username: 'officer', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'OFFICER' },
-//   { id: 3, username: 'user01', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'USER' },
-//   { id: 4, username: 'guest', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'GUEST' }
-// ];
 
 // หน้าแรก
 app.get('/', (req, res) => {
@@ -138,9 +155,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     // ตรวจสอบรหัสผ่าน
-    const isValid = user.password.startsWith('$2b$') 
-  ? await bcrypt.compare(password, user.password)
-  : password === user.password;
+    const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
       return res.status(401).json({ success: false, message: 'รหัสผ่านผิด' });
     }
