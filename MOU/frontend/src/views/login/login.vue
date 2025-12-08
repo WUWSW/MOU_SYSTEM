@@ -69,16 +69,17 @@ const handleLogin = async () => {
 
     const data = await response.json()
 
-    if (data.success) {
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-
-      const role = data.user.role.toLowerCase()
-      if (role === 'admin') router.push('/Admin')
-      else if (role === 'approve') router.push('/Approve')
-      else router.push('/User')
-    } else {
-      error.value = data.message || 'เข้าสู่ระบบล้มเหลว'
+    switch (role) {
+      case 'admin':
+        router.push('/Admin')
+        break
+      case 'approve':
+      case 'approver':
+      case 'officer':
+        router.push('/Approve')
+        break
+      default:
+        router.push('/User')
     }
   } catch (err) {
     error.value = 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้'
