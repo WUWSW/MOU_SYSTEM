@@ -67,6 +67,14 @@ const handleLogin = async () => {
       })
     })
 
+    // แปลง response เป็น JSON
+    const data = await response.json()
+
+    if (!response.ok) {
+      error.value = data.message || 'Login ไม่สำเร็จ'
+      return
+    }
+
     const role = data.user.role.toLowerCase().trim()
 
     if (role === 'admin') {
@@ -74,7 +82,7 @@ const handleLogin = async () => {
     } else if (['approve', 'approver', 'officer'].includes(role)) {
       router.push('/Approve')
     } else {
-      router.push('/User')  // ทุก role อื่น → ไป User
+      router.push('/User')
     }
   } catch (err) {
     error.value = 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้'
