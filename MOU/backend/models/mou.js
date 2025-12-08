@@ -23,7 +23,7 @@ const MouSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Active', 'Expired', 'Pending'],
+    enum: ['Approved', 'Rejected', 'Pending', 'Disabled'],
     default: 'Pending'
   },
   document_file: {
