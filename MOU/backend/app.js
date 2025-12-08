@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Partner = require('./models/partner');
+const Partner = require('./models/Partner');
 const User = require("./models/user");
 const Mou = require("./models/mou");
 const MouPartner = require("./models/mou_partner");
@@ -155,9 +155,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     // ตรวจสอบรหัสผ่าน
-    const isValid = user.password.startsWith('$2b$') 
-  ? await bcrypt.compare(password, user.password)
-  : password === user.password;
+    const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
       return res.status(401).json({ success: false, message: 'รหัสผ่านผิด' });
     }
