@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/login/login.vue'
 
 const routes = [
+
+  { path: '/', 
+    redirect: '/login' },
   {
     path: '/',
     redirect: '/login'    // หรือ name: 'Login'
