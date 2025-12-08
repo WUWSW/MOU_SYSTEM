@@ -1,35 +1,37 @@
-// frontend/src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
+import LoginView from '../views/LoginView.vue'
+
+const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
+  },
+  {
+    
+    path: '/Admin',
+    name: 'Admin',
+    component: () => import('../views/Admin/dashboard_admin.vue')
+  },
+  {
+    path: '/Approve',
+    name: 'Approve',
+    component: () => import('../views/Approve/dashboard_approve.vue')
+  },
+  {
+    path: '/User',
+    name: 'User',
+    component: () => import('../views/User/User.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
+  }
+]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'Login',
-      component: () => import('../views/login/login.vue')
-    },
-    {
-      path: '/Admin',
-      name: 'Admin',
-      // component: () => import('../views/Admin/App.vue')
-    },
-    {
-      path: '/Approve',
-      name: 'Approve',
-      // component: () => import('../views/Approve/App.vue')
-    },
-    {
-      path: '/User',
-      name: 'User',
-      component: () => import('../views/User/User.vue')
-    }
-    ,
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: '/'
-    }
-  ]
+  routes
 })
 
 export default router

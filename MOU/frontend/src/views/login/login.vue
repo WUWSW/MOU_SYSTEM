@@ -7,45 +7,34 @@
     </header>
 
 
-      <div class="user-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-        </svg>
-      </div>
+    <div class="user-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      </svg>
+    </div>
 
-      <!-- Title -->
-      <h1 class="title">LOGIN</h1>
+    <!-- Title -->
+    <h1 class="title">LOGIN</h1>
 
-      <!-- Form -->
-      <form @submit.prevent="handleLogin" class="login-form">
-        <input
-          v-model="username"
-          type="text"
-          placeholder="username"
-          required
-          class="input-field"
-          autocomplete="username"
-        />
+    <!-- Form -->
+    <form @submit.prevent="handleLogin" class="login-form">
+      <input v-model="username" type="text" placeholder="username" required class="input-field"
+        autocomplete="username" />
 
-        <input
-          v-model="password"
-          type="password"
-          placeholder="password"
-          required
-          class="input-field"
-          autocomplete="current-password"
-        />
+      <input v-model="password" type="password" placeholder="password" required class="input-field"
+        autocomplete="current-password" />
 
-        <!-- Error Message -->
-        <div v-if="error" class="error-msg">{{ error }}</div>
+      <!-- Error Message -->
+      <div v-if="error" class="error-msg">{{ error }}</div>
 
-        <a href="#" class="forgot-password">Forgot password</a>
+      <a href="#" class="forgot-password">Forgot password</a>
 
-        <button type="submit" :disabled="loading" class="login-btn">
-          {{ loading ? 'กำลังเข้าสู่ระบบ...' : 'Login' }}
-        </button>
-      </form>
-    
+      <button type="submit" :disabled="loading" class="login-btn">
+        {{ loading ? 'กำลังเข้าสู่ระบบ...' : 'Login' }}
+      </button>
+    </form>
+
   </div>
 </template>
 
@@ -69,7 +58,7 @@ const handleLogin = async () => {
   error.value = ''
 
   try {
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -84,14 +73,10 @@ const handleLogin = async () => {
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
-      // alert(`ยินดีต้อนรับ ${data.user.username} (${data.user.role})`)
-
-      // Redirect ตาม Role
-      const role = data.user.role
-      if (role === 'ADMIN') router.push('/Admin')
-      else if (role === 'OFFICER') router.push('/Approve')
-      else if (role === 'USER') router.push('/User')
-      else router.push('/')
+      const role = data.user.role.toLowerCase()
+      if (role === 'admin') router.push('/Admin')
+      else if (role === 'approver') router.push('/Approve')
+      else router.push('/User')
     } else {
       error.value = data.message || 'เข้าสู่ระบบล้มเหลว'
     }
