@@ -31,6 +31,11 @@ const routes = [
     component: () => import('../views/User/User.vue')
   },
   {
+    path: '/Profile',
+    name: 'Profile',
+    component: () => import('../views/Approve/profile.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/login'
   }

@@ -93,14 +93,16 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 
 const goProfile = () => {
-  router.push('/User')
+  router.push('/Profile')
 }
 
 const logout = () => {
-  router.push('/login')
+  localStorage.removeItem('token')
+  router.replace('/login') // replace ป้องกัน back
 }
 
 import { onMounted, ref } from 'vue'
