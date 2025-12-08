@@ -51,12 +51,7 @@ app.post("/users", async (req, res) => {
 
 app.get("/requests", async (req, res) => {
   try {
-    const requests = await Request.find()
-      .populate('requester', 'username fullname')
-      .populate('related_mou', 'mou_title mou_number')
-      .populate('related_partner', 'name_en')
-      .populate('approved_by', 'username')
-      .sort({ createdAt: -1 });
+    const requests = await Request.find().sort({ createdAt: -1 });
     res.json({ success: true, data: requests });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

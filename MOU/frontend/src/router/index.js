@@ -4,11 +4,10 @@ import RequestsUser from '../views/User/Requests_user.vue'
 
 const routes = [
 
-  { path: '/', 
-    redirect: '/login' },
+ 
   {
     path: '/',
-    redirect: '/login'    // หรือ name: 'Login'
+    redirect: '/login'    
   },
   
   {
