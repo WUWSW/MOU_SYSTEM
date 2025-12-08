@@ -1,0 +1,23 @@
+const mongoose = require('mongoose');
+
+const MouPartnerSchema = new mongoose.Schema({
+  mou_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Mou',
+    required: true
+  },
+  partner_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Partner',
+    required: true
+  },
+  role: {
+    type: String,
+    enum: ['เจ้าภาพ', 'ผู้ร่วมลงนาม', 'ผู้สนับสนุน'],
+    required: true
+  }
+}, {
+  timestamps: true // createdAt, updatedAt
+});
+
+module.exports = mongoose.model('MouPartner', MouPartnerSchema);
