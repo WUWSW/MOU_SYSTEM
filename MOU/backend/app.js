@@ -7,17 +7,17 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 3000;
 const SECRET_KEY = 'mou-secret-key-2025'; // เปลี่ยนได้ใน production
-
+const hashPassword = (pwd) => bcrypt.hashSync(pwd, 10);
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // ข้อมูลผู้ใช้ตัวอย่าง (ในของจริงจะอยู่ใน Database)
 const users = [
-  { id: 1, username: 'admin', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'ADMIN' },
-  { id: 2, username: 'officer', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'OFFICER' },
-  { id: 3, username: 'user01', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'USER' },
-  { id: 4, username: 'guest', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'GUEST' }
+  { id: 1, username: 'admin',   password: hashPassword('1234'), role: 'ADMIN' },
+  { id: 2, username: 'officer', password: hashPassword('1234'), role: 'OFFICER' },
+  { id: 3, username: 'user01',  password: hashPassword('1234'), role: 'USER' },
+  { id: 4, username: 'guest',   password: hashPassword('1234'), role: 'GUEST' }
 ];
 
 // หน้าแรก
