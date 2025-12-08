@@ -46,13 +46,13 @@ app.post("/partners", async (req, res) => {
 app.use(cors());
 app.use(express.json());
 
-// ข้อมูลผู้ใช้ตัวอย่าง (ในของจริงจะอยู่ใน Database)
-const users = [
-  { id: 1, username: 'admin', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'ADMIN' },
-  { id: 2, username: 'officer', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'OFFICER' },
-  { id: 3, username: 'user01', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'USER' },
-  { id: 4, username: 'guest', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'GUEST' }
-];
+
+// const users = [
+//   { id: 1, username: 'admin', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'ADMIN' },
+//   { id: 2, username: 'officer', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'OFFICER' },
+//   { id: 3, username: 'user01', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'USER' },
+//   { id: 4, username: 'guest', password: '$2b$10$z5f5j5Qz5j5Qz5j5Qz5j5uabc123', role: 'GUEST' }
+// ];
 
 // หน้าแรก
 app.get('/', (req, res) => {
