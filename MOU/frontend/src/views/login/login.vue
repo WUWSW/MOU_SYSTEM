@@ -67,19 +67,14 @@ const handleLogin = async () => {
       })
     })
 
-    const data = await response.json()
+    const role = data.user.role.toLowerCase().trim()
 
-    switch (role) {
-      case 'admin':
-        router.push('/Admin')
-        break
-      case 'approve':
-      case 'approver':
-      case 'officer':
-        router.push('/Approve')
-        break
-      default:
-        router.push('/User')
+    if (role === 'admin') {
+      router.push('/Admin')
+    } else if (['approve', 'approver', 'officer'].includes(role)) {
+      router.push('/Approve')
+    } else {
+      router.push('/User')  // ทุก role อื่น → ไป User
     }
   } catch (err) {
     error.value = 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้'
