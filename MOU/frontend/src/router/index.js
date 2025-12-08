@@ -3,6 +3,10 @@ import LoginView from '../views/login/login.vue'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/login'    // หรือ name: 'Login'
+  },
+  {
     path: '/login',
     name: 'Login',
     component: LoginView
@@ -25,7 +29,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/'
+    redirect: '/login'
   }
 ]
 
