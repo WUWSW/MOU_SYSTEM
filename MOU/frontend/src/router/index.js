@@ -10,18 +10,18 @@ const router = createRouter({
       component: () => import('../views/login/login.vue')
     },
     {
-      path: '/Admin',
-      name: 'Admin',
+      path: '/admin',
+      name: 'admin',
       // component: () => import('../views/Admin/App.vue')
     },
     {
-      path: '/Approve',
-      name: 'Approve',
+      path: '/approve',
+      name: 'approve',
       // component: () => import('../views/Approve/App.vue')
     },
     {
-      path: '/User',
-      name: 'User',
+      path: '/user',
+      name: 'user',
       // component: () => import('../views/User/App.vue')
     }
   ]
