@@ -7,8 +7,8 @@
         <button class="nav-btn">Home</button>
         <button class="nav-btn">Request</button>
         <button class="nav-btn">Contact</button>
-        <button class="nav-btn">Profile</button>
-        <button class="nav-btn logout">Logout</button>
+        <button class="nav-btn" @click="goProfile">Profile</button>
+        <button class="nav-btn logout" @click="logout">Logout</button>
       </div>
 
       <div class="logo">LOGO</div>
@@ -92,6 +92,17 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const goProfile = () => {
+  router.push('/User')
+}
+
+const logout = () => {
+  router.push('/login')
+}
+
 import { onMounted, ref } from 'vue'
 
 // Refs สำหรับ chart containers
