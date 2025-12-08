@@ -1,12 +1,46 @@
 // backend/app.js
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Partner = require('./models/Partner');
 
 const app = express();
+app.use(express.json());
 const PORT = 3000;
 const SECRET_KEY = 'mou-secret-key-2025'; // เปลี่ยนได้ใน production
+
+const MONGO_URI = 'mongodb+srv://user:1111@cluster0.lbtbl38.mongodb.net/'
+
+//MongoDB Connection
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+//Routes
+app.get("/partners", (req, res) => {
+  res.send("MOU system running...");
+});
+
+app.post("/partners", async (req, res) => {
+  try {
+    const partner = new Partner(req.body);
+    await partner.save(); // ← บันทึกลง MongoDB
+
+    res.status(200).json({
+      success: true,
+      message: "Partner saved to database!",
+      data: partner
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+});
 
 // Middleware
 app.use(cors());
