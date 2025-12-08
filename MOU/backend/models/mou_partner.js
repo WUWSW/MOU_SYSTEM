@@ -13,7 +13,7 @@ const MouPartnerSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['เจ้าภาพ', 'ผู้ร่วมลงนาม', 'ผู้สนับสนุน'],
+    enum: ['้host', 'co-signer', 'sponsor'],
     required: true
   }
 }, {
