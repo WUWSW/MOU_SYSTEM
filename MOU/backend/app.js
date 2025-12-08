@@ -11,6 +11,7 @@ const MouPartner = require("./models/mou_partner");
 const Activity = require("./models/activities");
 const Notification = require("./models/notifications");
 const Log = require("./models/logs");
+const Request = require('./models/request');
 
 const app = express();
 app.use(express.json());
@@ -44,6 +45,65 @@ app.post("/users", async (req, res) => {
     res.json({ success: true, data: user });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
+  }
+});
+//////////////////////////Request////////////////////////////
+
+app.get("/requests", async (req, res) => {
+  try {
+    const requests = await Request.find()
+      .populate('requester', 'username fullname')
+      .populate('related_mou', 'mou_title mou_number')
+      .populate('related_partner', 'name_en')
+      .populate('approved_by', 'username')
+      .sort({ createdAt: -1 });
+    res.json({ success: true, data: requests });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// สร้างคำขอใหม่
+app.post("/requests", async (req, res) => {
+  try {
+    const request = new Request(req.body);
+    await request.save();
+    
+    // เพิ่ม Log
+    await new Log({
+      user_id: req.body.requester,
+      action: `สร้างคำขอ: ${request.title}`,
+    }).save();
+
+    res.json({ success: true, data: request });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// อนุมัติ / ปฏิเสธคำขอ
+app.put("/requests/:id/approve", async (req, res) => {
+  try {
+    const { status, rejected_reason } = req.body; // APPROVED or REJECTED
+    const updateData = {
+      status,
+      approved_by: req.body.approved_by,
+      approved_at: new Date(),
+    };
+    if (status === 'REJECTED') updateData.rejected_reason = rejected_reason;
+
+    const request = await Request.findByIdAndUpdate(req.params.id, updateData, { new: true })
+      .populate('requester');
+
+    // Log
+    await new Log({
+      user_id: req.body.approved_by,
+      action: `${status === 'APPROVED' ? 'อนุมัติ' : 'ปฏิเสธ'}คำขอ: ${request.title}`,
+    }).save();
+
+    res.json({ success: true, data: request });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/login/login.vue'
+import RequestsUser from '../views/User/Requests_user.vue'
 
 const routes = [
 
@@ -9,6 +10,7 @@ const routes = [
     path: '/',
     redirect: '/login'    // หรือ name: 'Login'
   },
+  
   {
     path: '/login',
     name: 'Login',
@@ -30,6 +32,12 @@ const routes = [
     name: 'User',
     component: () => import('../views/User/User.vue')
   },
+  {
+    path: '/requests',           
+    name: 'Requests',
+    component: RequestsUser      
+  },
+
   {
     path: '/:pathMatch(.*)*',
     redirect: '/login'

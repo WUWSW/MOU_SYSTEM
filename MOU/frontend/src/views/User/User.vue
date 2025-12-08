@@ -1,15 +1,13 @@
 <template>
   <div class="dashboard">
 
-    <div class="topbar">
+   <div class="topbar">
       <div class="left-menu">
-        <button class="nav-btn">Home</button>
-        <button class="nav-btn">Requests</button>
+        <router-link to="/" class="nav-btn">Home</router-link>
+        <router-link to="/requests" class="nav-btn">Requests</router-link>
         <button class="nav-btn">History</button>
-        <button class="nav-btn logout">Logout</button>
+        <button @click="logout" class="nav-btn logout">Logout</button>
       </div>
-
-      <div class="logo">LOGO</div>
     </div>
 
     <!-- Header -->
@@ -115,7 +113,15 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+
+const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  router.push('/login')  
+}
 // Refs สำหรับ chart containers
 const worldMap = ref(null)
 const countryChart = ref(null)
@@ -196,14 +202,19 @@ function drawAllCharts() {
   margin-bottom: 20px;
 }
 
+.left-menu {
+  display: flex;
+  gap: 12px;
+}
 .nav-btn {
-  background: #b80000;
-  color: white;
-  padding: 8px 16px;
+    background: #b20000;       
+  color: #ffffff;            
+  padding: 10px 18px;
+  border-radius: 12px;       
+  text-decoration: none;
   border: none;
-  border-radius: 8px;
+  font-size: 15px;
   cursor: pointer;
-  font-weight: 600;
   transition: 0.2s;
 }
 .dashboard {
@@ -317,4 +328,5 @@ function drawAllCharts() {
     grid-template-columns: 1fr;
   }
 }
+
 </style>
