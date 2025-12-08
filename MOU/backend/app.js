@@ -138,7 +138,9 @@ app.post('/api/login', async (req, res) => {
     }
 
     // ตรวจสอบรหัสผ่าน
-    const isValid = await bcrypt.compare(password, user.password);
+    const isValid = user.password.startsWith('$2b$') 
+  ? await bcrypt.compare(password, user.password)
+  : password === user.password;
     if (!isValid) {
       return res.status(401).json({ success: false, message: 'รหัสผ่านผิด' });
     }
