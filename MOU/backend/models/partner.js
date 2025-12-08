@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const PartnerSchema = new mongoose.Schema({
-  _id: String,
+const partnerSchema = new mongoose.Schema({
   name_th: String,
   name_en: String,
   address: String,
@@ -12,4 +11,4 @@ const PartnerSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Partner', PartnerSchema);
+module.exports = mongoose.model("Partner", partnerSchema);

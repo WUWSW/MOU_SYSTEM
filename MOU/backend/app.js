@@ -5,6 +5,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Partner = require('./models/Partner');
+const User = require("./models/user");
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,17 @@ mongoose.connect(MONGO_URI)
   .catch(err => console.error('MongoDB connection error:', err));
 
 //Routes
+
+app.post("/users", async (req, res) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    res.json({ success: true, data: user });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.get("/partners", (req, res) => {
   res.send("MOU system running...");
 });
@@ -26,19 +38,10 @@ app.get("/partners", (req, res) => {
 app.post("/partners", async (req, res) => {
   try {
     const partner = new Partner(req.body);
-    await partner.save(); // ← บันทึกลง MongoDB
-
-    res.status(200).json({
-      success: true,
-      message: "Partner saved to database!",
-      data: partner
-    });
-
+    await partner.save();
+    res.json({ success: true, data: partner });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err.message
-    });
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
