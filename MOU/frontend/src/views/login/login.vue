@@ -75,7 +75,7 @@ const handleLogin = async () => {
 
       const role = data.user.role.toLowerCase()
       if (role === 'admin') router.push('/Admin')
-      else if (role === 'approver') router.push('/Approve')
+      else if (role === 'approve') router.push('/Approve')
       else router.push('/User')
     } else {
       error.value = data.message || 'เข้าสู่ระบบล้มเหลว'
