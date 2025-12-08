@@ -1,5 +1,17 @@
 <template>
   <div class="dashboard">
+
+    <div class="topbar">
+      <div class="left-menu">
+        <button class="nav-btn">Home</button>
+        <button class="nav-btn">Requests</button>
+        <button class="nav-btn">History</button>
+        <button class="nav-btn logout">Logout</button>
+      </div>
+
+      <div class="logo">LOGO</div>
+    </div>
+
     <!-- Header -->
     <div class="header">MFU International Collaboration</div>
 
@@ -65,11 +77,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>11</td><td>Vaccine & Gene Therapy Institute</td><td>USA</td><td>VALID</td></tr>
-          <tr><td>12</td><td>University of Wisconsin Milwaukee</td><td>USA</td><td>VALID</td></tr>
-          <tr><td>13</td><td>University of Tsukuba</td><td>Japan</td><td>VALID</td></tr>
-          <tr><td>14</td><td>University of Shizuoka</td><td>Japan</td><td>VALID</td></tr>
-          <tr><td>15</td><td>University of Northampton</td><td>UK</td><td>VALID</td></tr>
+          <tr>
+            <td>11</td>
+            <td>Vaccine & Gene Therapy Institute</td>
+            <td>USA</td>
+            <td>VALID</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>University of Wisconsin Milwaukee</td>
+            <td>USA</td>
+            <td>VALID</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>University of Tsukuba</td>
+            <td>Japan</td>
+            <td>VALID</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>University of Shizuoka</td>
+            <td>Japan</td>
+            <td>VALID</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>University of Northampton</td>
+            <td>UK</td>
+            <td>VALID</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -147,27 +184,137 @@ function drawAllCharts() {
 </script>
 
 <style scoped>
-/* คุณสามารถคัดลอก style.css เดิมมาใส่ตรงนี้ได้เลย หรือแยกไฟล์ก็ได้ */
-.dashboard { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; color: #333; padding: 20px; }
-.header { font-size: 28px; font-weight: bold; text-align: center; margin: 20px 0; color: #b80000; }
-.container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-.full-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-.card h3 { margin: 0 0 15px 0; color: #b80000; }
-.chart { width: 100%; height: 400px; }
-.chart-small { height: 250px; }
-.subgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
-.stat-box { background: #b80000; color: white; padding: 15px; border-radius: 8px; text-align: center; font-size: 14px; }
-.stat-box span { display: block; font-size: 28px; font-weight: bold; margin-top: 5px; }
-.network-list { padding-left: 20px; }
-.network-list li { margin: 10px 0; }
-.table-card table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-.table-card th, .table-card td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-.table-card th { background: #b80000; color: white; }
-.table-card tr:nth-child(even) { background: #f8f8f8; }
+.topbar {
+  width: 100%;
+  background: #ffffff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.nav-btn {
+  background: #b80000;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.dashboard {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  padding: 20px;
+}
+
+.header {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+  color: #b80000;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.full-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin: 0 0 15px 0;
+  color: #b80000;
+}
+
+.chart {
+  width: 100%;
+  height: 400px;
+}
+
+.chart-small {
+  height: 250px;
+}
+
+.subgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.stat-box {
+  background: #b80000;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.stat-box span {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.network-list {
+  padding-left: 20px;
+}
+
+.network-list li {
+  margin: 10px 0;
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.table-card th,
+.table-card td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.table-card th {
+  background: #b80000;
+  color: white;
+}
+
+.table-card tr:nth-child(even) {
+  background: #f8f8f8;
+}
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .container, .full-grid { grid-template-columns: 1fr; }
+
+  .container,
+  .full-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
