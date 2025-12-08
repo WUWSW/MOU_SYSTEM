@@ -5,6 +5,12 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Partner = require('./models/Partner');
+const User = require("./models/user");
+const Mou = require("./models/mou");
+const MouPartner = require("./models/mou_partner");
+const Activity = require("./models/activities");
+const Notification = require("./models/notifications");
+const Log = require("./models/logs");
 
 const app = express();
 app.use(express.json());
@@ -19,6 +25,19 @@ mongoose.connect(MONGO_URI)
   .catch(err => console.error('MongoDB connection error:', err));
 
 //Routes
+
+//////////////////////////USERS//////////////////////////
+app.post("/users", async (req, res) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    res.json({ success: true, data: user });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+//////////////////////////PARTNERS//////////////////////////
 app.get("/partners", (req, res) => {
   res.send("MOU system running...");
 });
@@ -26,19 +45,66 @@ app.get("/partners", (req, res) => {
 app.post("/partners", async (req, res) => {
   try {
     const partner = new Partner(req.body);
-    await partner.save(); // ← บันทึกลง MongoDB
-
-    res.status(200).json({
-      success: true,
-      message: "Partner saved to database!",
-      data: partner
-    });
-
+    await partner.save();
+    res.json({ success: true, data: partner });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err.message
-    });
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+//////////////////////////MOUS//////////////////////////
+
+app.post("/mou", async (req, res) => {
+  try {
+    const mou = new Mou(req.body);
+    await mou.save();
+    res.json({ success: true, data: mou });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+//////////////////////////MOUS_PARTNERS//////////////////////////
+app.post("/mou_partner", async (req, res) => {
+  try {
+    const mouPartner = new MouPartner(req.body);
+    await mouPartner.save();
+    res.json({ success: true, data: mouPartner });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+//////////////////////////ACTIVITIES//////////////////////////
+app.post("/activities", async (req, res) => {
+  try {
+    const activity = new Activity(req.body);
+    await activity.save();
+    res.json({ success: true, data: activity });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+//////////////////////////NOTIFICATIONS//////////////////////////
+app.post("/notifications", async (req, res) => {
+  try {
+    const notification = new Notification(req.body);
+    await notification.save();
+    res.json({ success: true, data: notification });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+//////////////////////////LOGS//////////////////////////
+app.post("/logs", async (req, res) => {
+  try {
+    const log = new Log(req.body);
+    await log.save();
+    res.json({ success: true, data: log });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
