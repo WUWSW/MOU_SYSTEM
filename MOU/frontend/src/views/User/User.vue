@@ -5,7 +5,7 @@
       <div class="left-menu">
         <router-link to="/" class="nav-btn">Home</router-link>
         <router-link to="/requests" class="nav-btn">Requests</router-link>
-        <button class="nav-btn">History</button>
+        <router-link to="/history" class="nav-btn" >History</router-link>
         <button @click="logout" class="nav-btn logout">Logout</button>
       </div>
     </div>
@@ -120,7 +120,7 @@ const router = useRouter()
 const logout = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('user')
-  router.push('/login')  
+  router.replace('/login')  
 }
 // Refs สำหรับ chart containers
 const worldMap = ref(null)

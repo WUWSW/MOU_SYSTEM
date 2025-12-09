@@ -1,22 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/login/login.vue'
 import RequestsUser from '../views/User/Requests_user.vue'
-
+import HistoryView from '../views/User/History.vue'
 const routes = [
 
- 
+
   {
     path: '/',
-    redirect: '/login'    
+    redirect: '/login'
   },
-  
+
   {
     path: '/login',
     name: 'Login',
     component: LoginView
   },
   {
-    
+
     path: '/Admin',
     name: 'Admin',
     component: () => import('../views/Admin/dashboard_admin.vue')
@@ -32,11 +32,15 @@ const routes = [
     component: () => import('../views/User/User.vue')
   },
   {
-    path: '/requests',           
+    path: '/requests',
     name: 'Requests',
-    component: RequestsUser      
+    component: RequestsUser
   },
-
+  {
+    path: '/history',                 
+    name: 'History',
+    component: HistoryView          
+  },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/login'

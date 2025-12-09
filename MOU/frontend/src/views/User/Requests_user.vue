@@ -6,8 +6,7 @@
             <div class="nav-links">
                 <router-link to="/User" class="nav-link">Dashboard</router-link>
                 <router-link to="/requests" class="nav-link active">Request MOU</router-link>
-                <router-link to="/history" class="nav-link">History</router-link>
-                <router-link to="/profile" class="nav-link">Profile</router-link>
+                <router-link to="/history" class="nav-link">History</router-link>   
             </div>
             <button @click="logout" class="btn-logout">Logout</button>
         </div>
@@ -268,7 +267,7 @@ const approveRequest = async (id, status) => {
 const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    router.push('/login')
+    router.replace('/login')
 }
 
 onMounted(() => {

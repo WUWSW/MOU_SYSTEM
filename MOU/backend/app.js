@@ -76,6 +76,36 @@ app.post("/requests", async (req, res) => {
   }
 });
 
+
+
+app.get("/requests/pending", async (req, res) => {
+  try {
+    const requests = await Request.find({ status: "PENDING" })
+      .populate("requester", "fullname username")
+      .sort({ createdAt: -1 });
+
+    res.json({ success: true, data: requests });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+
+app.get("/requests/history", async (req, res) => {
+  try {
+    const requests = await Request.find({
+      status: { $in: ["APPROVED", "REJECTED"] }
+    })
+      .populate("requester", "fullname username")
+      .populate("approved_by", "fullname username")
+      .sort({ approved_at: -1 }); // ล่าสุดที่ตัดสินก่อน
+
+    res.json({ success: true, data: requests });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // อนุมัติ / ปฏิเสธคำขอ
 app.put("/requests/:id/approve", async (req, res) => {
   try {
