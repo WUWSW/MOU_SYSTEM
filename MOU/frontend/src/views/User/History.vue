@@ -119,21 +119,20 @@ onMounted(loadHistory)
 
 <style scoped>
 .history-page {
-  min-height: 100vh;
-  background: #f8f9fa;
+    min-height: 100vh;
+    background: #f8f9fa;
 }
 
-/* Navbar เดียวกับ Requests */
 .main-nav-bar {
-  background: white;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+    background: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 .logo { font-size: 26px; font-weight: bold; color: #B20000; }
 .nav-links { display: flex; gap: 35px; margin-left: auto; margin-right: 30px; }
@@ -144,98 +143,132 @@ onMounted(loadHistory)
 .btn-logout { background: #B20000; color: white; padding: 9px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
 .btn-logout:hover { background: #900000; }
 
+/* Content Area */
 .content {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
+    max-width: 1000px; /* ปรับลดความกว้างเล็กน้อยเพื่อให้ดูเหมาะสมกับ Card */
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 .page-title {
-  text-align: center;
-  font-size: 28px;
-  color: #B20000;
-  margin-bottom: 30px;
-  font-weight: bold;
+    text-align: center;
+    font-size: 28px;
+    color: #333; /* ใช้สีเทาเข้มเพื่อให้ตัดกับเส้นแบ่งวัน */
+    margin-bottom: 30px;
+    font-weight: bold;
+    position: relative;
+    /* จำลองเส้นแบ่งวัน */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
 }
+/* ไม่สามารถจำลองเส้นแบ่งวันแบบในภาพ (10 Dec 2025) ได้ด้วย H1 ธรรมดาโดยง่าย
+   จึงต้องใช้โครงสร้างที่เรียบง่ายกว่า (เน้นรายการ Card) */
 
+
+/* History List & Card Styles */
 .history-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 20px;
+    /* เปลี่ยนจาก grid เป็น flex-direction column เพื่อให้ Card แสดงเรียงลงมา 
+       เหมือนในภาพตัวอย่างที่ไม่มีการแบ่งคอลัมน์หลายอัน */
+    display: flex; 
+    flex-direction: column;
+    gap: 30px; /* เพิ่มช่องว่างระหว่างรายการ */
+    align-items: center; /* จัดให้อยู่ตรงกลางตามแนวนอน */
 }
 
 .history-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-left: 6px solid #ddd;
+    background: white;
+    border-radius: 8px; /* ลดความโค้งมนเล็กน้อยตามภาพ */
+    padding: 15px; /* ลด Padding เล็กน้อย */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #eee; /* เพิ่มขอบสีอ่อน */
+    width: 100%;
+    max-width: 500px; /* กำหนดความกว้างสูงสุดของ Card ตามภาพ */
+    
+    /* สไตล์สีแดง/เขียว ที่ขอบซ้าย */
+    border-left: 5px solid #ddd;
+    position: relative;
 }
 
 .history-card.approved { border-left-color: #4CAF50; }
 .history-card.rejected { border-left-color: #F44336; }
 
 .card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
+/* Badge (สร้าง MoU ใหม่) */
 .type-badge {
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  color: white;
-  font-weight: bold;
+    padding: 3px 8px; /* ลดขนาด Badge */
+    border-radius: 3px;
+    font-size: 11px; /* ลดขนาด Font */
+    color: white;
+    font-weight: bold;
 }
 .type-badge.MOU_CREATE { background: #B20000; }
 .type-badge.MOU_RENEW { background: #E91E63; }
 .type-badge.ACTIVITY { background: #2196F3; }
 
+/* Status Badge (อนุมัติแล้ว/ปฏิเสธแล้ว) */
 .status-badge {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  color: white;
-  font-weight: bold;
+    padding: 3px 8px; /* ลดขนาด Badge */
+    border-radius: 3px;
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
 }
 .status-badge.approved { background: #4CAF50; }
 .status-badge.rejected { background: #F44336; }
 
 h3 {
-  margin: 8px 0;
-  color: #B20000;
-  font-size: 17px;
+    margin: 5px 0 3px 0;
+    color: #333; /* เปลี่ยนเป็นสีดำตามภาพ */
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .desc {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 15px;
-  line-height: 1.5;
+    color: #555;
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.5;
 }
 
+/* รายละเอียดผู้ขอ/วันที่ขอ */
 .details {
-  font-size: 13.5px;
-  color: #444;
-  line-height: 1.7;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* ให้รายละเอียดเรียงลงมา */
 }
+.details span {
+    margin-bottom: 2px;
+}
+.details strong {
+    font-weight: 500;
+    margin-right: 5px;
+}
+
 
 .reject-box {
-  margin-top: 15px;
-  padding: 12px;
-  background: #ffebee;
-  border-radius: 8px;
-  border-left: 4px solid #f44336;
-  color: #c62828;
-  font-size: 14px;
+    margin-top: 10px;
+    padding: 8px;
+    background: #fef1f1;
+    border-radius: 4px;
+    border-left: 3px solid #f44336;
+    color: #c62828;
+    font-size: 12px;
 }
 
 .empty {
-  text-align: center;
-  padding: 100px 20px;
-  color: #777;
-  font-size: 18px;
+    text-align: center;
+    padding: 100px 20px;
+    color: #777;
+    font-size: 18px;
 }
 </style>

@@ -1,14 +1,15 @@
 <template>
   <div class="dashboard">
 
-   <div class="topbar">
-      <div class="left-menu">
-        <router-link to="/" class="nav-btn">Home</router-link>
-        <router-link to="/requests" class="nav-btn">Requests</router-link>
-        <router-link to="/history" class="nav-btn" >History</router-link>
-        <button @click="logout" class="nav-btn logout">Logout</button>
-      </div>
-    </div>
+  <div class="main-nav-bar">
+  <div class="logo">LOGO</div>
+  <div class="nav-links">
+    <router-link to="/User" class="nav-link active">Dashboard</router-link>
+    <router-link to="/requests" class="nav-link">Request MOU</router-link>
+    <router-link to="/history" class="nav-link">History</router-link>
+  </div>
+  <button @click="logout" class="btn-logout">Logout</button>
+</div>
 
     <!-- Header -->
     <div class="header">MFU International Collaboration</div>
@@ -190,46 +191,81 @@ function drawAllCharts() {
 </script>
 
 <style scoped>
-.topbar {
-  width: 100%;
-  background: #ffffff;
-  padding: 12px 20px;
+.main-nav-bar {
+  background: white;
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-bottom: 30px;
+}
+.logo { 
+  font-size: 26px; 
+  font-weight: bold; 
+  color: #B20000; 
+}
+.nav-links { 
+  display: flex; 
+  gap: 35px; 
+  margin-left: auto; 
+  margin-right: 30px; 
+}
+.nav-link { 
+  color: #333; 
+  text-decoration: none; 
+  font-size: 16px; 
+  font-weight: 500; 
+  position: relative; 
+  padding: 5px 0; 
+}
+.nav-link:hover { 
+  color: #B20000; 
+}
+.nav-link.active { 
+  color: #B20000; 
+  font-weight: bold; 
+}
+.nav-link.active::after { 
+  content: ''; 
+  position: absolute; 
+  bottom: -6px; 
+  left: 0; 
+  width: 100%; 
+  height: 3px; 
+  background: #B20000; 
+  border-radius: 2px; 
+}
+.btn-logout { 
+  background: #B20000; 
+  color: white; 
+  padding: 9px 24px; 
+  border: none; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-weight: 600; 
+}
+.btn-logout:hover { 
+  background: #900000; 
 }
 
-.left-menu {
-  display: flex;
-  gap: 12px;
-}
-.nav-btn {
-    background: #b20000;       
-  color: #ffffff;            
-  padding: 10px 18px;
-  border-radius: 12px;       
-  text-decoration: none;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
+/* เนื้อหาเดิมของ Dashboard ยังอยู่เหมือนเดิม */
 .dashboard {
   font-family: 'Segoe UI', sans-serif;
   background: #f9f9f9;
   color: #333;
-  padding: 20px;
+ 
 }
 
 .header {
   font-size: 28px;
   font-weight: bold;
   text-align: center;
-  margin: 20px 0;
-  color: #b80000;
+  margin: 30px 0 40px;
+  color: #B20000;
 }
 
 .container {
